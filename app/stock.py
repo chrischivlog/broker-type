@@ -41,7 +41,7 @@ def job():
     result = requests.post(webhook_url, data=json.dumps(data), headers={"Content-Type": "application/json"})
 
 # scheduler to run every friday at 4pm
-schedule.every().sunday.at("17:10").do(job)
+schedule.every().friday.at("16:00").do(job)
 
 while True:
     schedule.run_pending()
