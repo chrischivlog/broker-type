@@ -1,0 +1,9 @@
+api_key.json
+venv/
+__pycache__/
+.env
+.env.*
+.DS_Store
+.idea/
+.vscode/
+*.pyc
