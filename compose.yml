@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  stock_service:
+    build: .
+    container_name: stock-service
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Berlin
