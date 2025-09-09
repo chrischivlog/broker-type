@@ -1,22 +1,26 @@
 import json
+import os
 import requests
 import schedule
 import time
 import datetime
 
+
 def job():
-
     # import stock information for multiplining the value of stock
-    stocks_file = "stocks.json"
+    stocks_file = api_key_file = os.path.join(os.path.dirname(__file__), 'stocks.json')
 
-    # Stock API URL: https://marketstack.com/documentation_v2
-    api_key_file = "api_key.json"
+    # import API key from api_key.json
+    api_key_file = os.path.join(os.path.dirname(__file__), 'api_key.json')
     with open(api_key_file, 'r') as f:
         api_data = json.load(f)
-        api_key = api_data['api_key'] 
+        api_key = api_data['api_key']
+        api_webhook = api_data['webhook_discord'] 
 
-    webhook_url = 'https://discord.com/api/webhooks/881954769193820170/ucJoZAWQkaU5hItHwqFDDh_W8Nls0Qr1LxEFx1MxomoyT8x1pRg9cIxbEyD7DzbFz4yl'
+    webhook_url = api_webhook
+    print(webhook_url)
 
+    # Stock API URL: https://marketstack.com/documentation_v2
     api_request = requests.get('http://api.marketstack.com/v2/eod/latest?access_key='+ api_key +'&symbols=AAPL')
     api = json.loads(api_request.content)
 
@@ -41,7 +45,7 @@ def job():
     result = requests.post(webhook_url, data=json.dumps(data), headers={"Content-Type": "application/json"})
 
 # scheduler to run every friday at 4pm
-schedule.every().friday.at("16:00").do(job)
+schedule.every().friday.at("21:00").do(job)
 
 while True:
     schedule.run_pending()
