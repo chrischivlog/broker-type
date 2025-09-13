@@ -39,7 +39,7 @@ def job():
 
     #trigger the webhook on discord to show the price closed at stock
     data = {
-        "content": "The stock closed at: " + str(total_value)
+        "The stock closed at: " + str(total_value)
     }
 
     result = requests.post(webhook_url, data=json.dumps(data), headers={"Content-Type": "application/json"})
