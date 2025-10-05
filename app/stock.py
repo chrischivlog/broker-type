@@ -35,17 +35,13 @@ def job():
         total_value = close_price * stock_amount
         print(f"The total value of {stock_amount} shares of {stock_name} is: ${total_value:.2f}")
 
-
-
     #trigger the webhook on discord to show the price closed at stock
-    data = {
-        "content": "The stock closed at: " + str(total_value)
-    }
-
-    result = requests.post(webhook_url, data=json.dumps(data), headers={"Content-Type": "application/json"})
+    data = "The stock closed at: " + str(total_value)
+    
+    requests.post(webhook_url, data)
 
 # scheduler to run every friday at 4pm
-schedule.every().day.at("19:33").do(job)
+schedule.every().day.at("20:00").do(job)
 
 while True:
     schedule.run_pending()
